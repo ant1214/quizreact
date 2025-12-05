@@ -4,7 +4,7 @@ import { Form, Input, Button, message, Select, Space } from 'antd';
 const { TextArea } = Input;
 const { Option } = Select;
 
-const AddQuestion = ({ onSuccess }) => {
+const AddQuestion = ({ onSuccess, onCancel }) => { // 添加 onCancel 参数
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
 
@@ -27,7 +27,7 @@ const AddQuestion = ({ onSuccess }) => {
       }
       
       setLoading(false);
-    }, 500); // 500ms 延迟模拟网络请求
+    }, 500);
   };
 
   return (
@@ -92,9 +92,17 @@ const AddQuestion = ({ onSuccess }) => {
       </Form.Item>
 
       <Form.Item>
-        <Button type="primary" htmlType="submit" loading={loading} block>
-          提交
-        </Button>
+        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
+          {/* 取消按钮在左边 */}
+          <Button onClick={onCancel}>
+            取消
+          </Button>
+          
+          {/* 提交按钮在右边 */}
+          <Button type="primary" htmlType="submit" loading={loading}>
+            提交
+          </Button>
+        </div>
       </Form.Item>
     </Form>
   );

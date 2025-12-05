@@ -120,7 +120,7 @@ const Admin = () => {
         </Content>
       </Layout>
       <Footer style={{ textAlign: 'center' }}>
-        Quiz管理系统 ©2025 Created by tfzhang
+        Quiz管理系统 ©2025 Created by zychen
       </Footer>
     </Layout>
   );

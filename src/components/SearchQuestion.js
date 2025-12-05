@@ -53,7 +53,8 @@ const SearchQuestion = ({ onSearch, onAddSuccess }) => {
         footer={null}
         width={600}
       >
-        <AddQuestion onSuccess={handleAddSuccess} />
+        <AddQuestion onSuccess={handleAddSuccess} 
+        onCancel={() => setOpen(false)}/>
       </Modal>
     </Space>
   );

@@ -2,14 +2,14 @@ import { Form, Input, Button, message, Select } from 'antd';
 import React, { useState } from 'react';
 
 const formItemLayout = {
-  labelCol: { xs: { span: 24 }, sm: { span: 8 } },
-  wrapperCol: { xs: { span: 24 }, sm: { span: 16 } },
+  labelCol: { xs: { span: 24 }, sm: { span: 5 } },
+  wrapperCol: { xs: { span: 24 }, sm: { span: 19 } },
 };
 const tailFormItemLayout = {
   wrapperCol: { xs: { span: 24, offset: 0 }, sm: { span: 16, offset: 8 } },
 };
 
-const AddUser = ({ onSuccess }) => {
+const AddUser = ({ onSuccess, onCancel }) => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
 
@@ -42,6 +42,7 @@ const AddUser = ({ onSuccess }) => {
       name="register"
       onFinish={onFinish}
       scrollToFirstError
+      
     >
       <Form.Item
         name="username"
@@ -100,9 +101,17 @@ const AddUser = ({ onSuccess }) => {
       </Form.Item>
 
       <Form.Item {...tailFormItemLayout}>
-        <Button type="primary" htmlType="submit" loading={loading}>
-          提交
-        </Button>
+          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
+            {/* 取消按钮在左边 */}
+            <Button onClick={onCancel}>
+              取消
+            </Button>
+            
+            {/* 提交按钮在右边 */}
+            <Button type="primary" htmlType="submit" loading={loading}>
+              提交
+            </Button>
+          </div>
       </Form.Item>
     </Form>
   );

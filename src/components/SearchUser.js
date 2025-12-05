@@ -72,7 +72,8 @@ const SearchUser = ({ onSearch, onAddSuccess }) => {
           onCancel={handleCancel}
           footer={null}
         >
-          <AddUser onSuccess={handleAddSuccess} />
+          <AddUser onSuccess={handleAddSuccess} 
+          onCancel={handleCancel} />
         </Modal>
       </Space>
     </>
