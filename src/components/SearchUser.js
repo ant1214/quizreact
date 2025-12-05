@@ -1,15 +1,13 @@
-import { AudioOutlined } from '@ant-design/icons';
-import { Input, Space, Button } from 'antd';
+import { Input, Space, Button, Modal } from 'antd';
 import React from 'react';
 import { useState } from 'react';
-import { Modal } from 'antd';
 import AddUser from './AddUser';
 
 const { Search } = Input;
 
 const SearchUser = ({ onSearch, onAddSuccess }) => {
   const [open, setOpen] = useState(false);
-  const [searchValue, setSearchValue] = useState(''); // 添加状态保存输入值
+  const [searchValue, setSearchValue] = useState('');
 
   const showModal = () => {
     setOpen(true);
@@ -23,14 +21,23 @@ const SearchUser = ({ onSearch, onAddSuccess }) => {
   const handleAddSuccess = () => {
     setOpen(false);
     if (onAddSuccess) {
-      onAddSuccess(); // 通知父组件刷新数据
+      onAddSuccess();
     }
   };
 
   // 搜索函数
   const handleSearch = (value) => {
+    // 如果搜索内容为空，显示弹窗但依然执行搜索
+    if (!value || value.trim() === '') {
+      Modal.info({
+        title: '提示',
+        content: '搜索内容为空，将显示所有用户',
+        okText: '确定',
+      });
+    }
+    
     if (onSearch && typeof onSearch === 'function') {
-      onSearch(value);
+      onSearch(value); // 即使为空也会调用，显示所有用户
     } else {
       console.warn('onSearch prop is not a function or not provided');
     }
@@ -41,14 +48,10 @@ const SearchUser = ({ onSearch, onAddSuccess }) => {
     setSearchValue(e.target.value);
   };
 
-  // 按钮点击搜索
-  const handleButtonSearch = () => {
-    handleSearch(searchValue);
-  };
-
   return (
     <>
-      <Space orientation="horizontal" style={{ margin: '16px 0 16px 16px' }}> {/* 修复警告 */}
+      <Space orientation="horizontal" style={{ margin: '16px 0 16px 16px' }}>
+        <span style={{ marginRight: '8px', fontSize: '16px' }}>用户名</span>
         <Search
           placeholder="请输入用户名"
           allowClear
@@ -67,7 +70,7 @@ const SearchUser = ({ onSearch, onAddSuccess }) => {
           title="添加用户"
           open={open}
           onCancel={handleCancel}
-          footer={null} // 移除默认按钮
+          footer={null}
         >
           <AddUser onSuccess={handleAddSuccess} />
         </Modal>

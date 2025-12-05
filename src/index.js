@@ -4,10 +4,13 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'antd/dist/reset.css'; 
+import { BrowserRouter } from 'react-router-dom'; // 添加这行
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter> {/* 添加这行 */}
+      <App />
+    </BrowserRouter> 
   </React.StrictMode>
 );
 
